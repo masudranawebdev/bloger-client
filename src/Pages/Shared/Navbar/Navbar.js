@@ -1,14 +1,12 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import logo from "../../../assets/images/logo.png";
-import useAdmin from "../../../hooks/useAdmin";
-import useMonitorOfficer from "../../../hooks/useMonitorOfficer";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const [isAdmin] = useAdmin(user?.email);
-  const [isMonitorOfficer] = useMonitorOfficer(user?.email);
+  console.log(user);
   const navigate = useNavigate();
   const handleLogOut = () => {
     logOut()
@@ -23,22 +21,13 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/add-complain">Add Blog</Link>
+        <Link to="/post-blog">Add Blog</Link>
       </li>
       <li>
         <Link to="/contact">Contact</Link>
       </li>
-      {(isAdmin || isMonitorOfficer) && (
-        <li>
-          <Link to="/dashboard/complain-action">Dashboard</Link>
-        </li>
-      )}
       {user?.uid ? (
-        <>
-          <li>
-            <button>SignOut</button>
-          </li>
-        </>
+        <></>
       ) : (
         <>
           <li>
@@ -118,10 +107,17 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+                {user?.photoURL ? (
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={user?.photoURL}
+                  />
+                ) : (
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  />
+                )}
               </div>
             </div>
             <ul
@@ -129,10 +125,7 @@ const Navbar = () => {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                <a className="justify-between">{user?.displayName}</a>
               </li>
               <li>
                 <a>Settings</a>

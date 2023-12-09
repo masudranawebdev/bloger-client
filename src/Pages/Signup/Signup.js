@@ -17,7 +17,7 @@ const SignUp = () => {
   const [createdUserEmail, setCreatedUserEmail] = useState("");
   const [token] = useToken(createdUserEmail);
   const navigate = useNavigate();
-  const base_url = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+  const base_url = process.env.REACT_APP_BASE_URL || "https://bloger-server-topaz.vercel.app";
 
   if (token) {
     navigate("/");
@@ -79,26 +79,19 @@ const SignUp = () => {
         </h2>
         <form onSubmit={handleSubmit(handleSignUp)} className="">
           <div className="form-control w-full max-w-xs">
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">User Type</span>
-              </label>
-              {/* user type */}
-              <select
-                {...register("role")}
-                className="input input-bordered w-full max-w-xs"
-              >
-                <option value="" defaultChecked>
-                  Select
-                </option>
-                <option value="admin">admin</option>
-                <option value="monitor-officer">monitor-officer</option>
-                <option value="customer">customer</option>
-              </select>
-              {errors.role && (
-                <p className="text-red-600"> {errors.role.message}</p>
-              )}
-            </div>
+            <label className="label">
+              <span className="label-text">Full Name</span>
+            </label>
+            <input
+              {...register("name", { required: "Name is required" })}
+              type="text"
+              className="input input-bordered w-full max-w-xs"
+            />
+            {errors.name && (
+              <p className="text-red-600"> {errors.name.message}</p>
+            )}
+          </div>
+          <div className="form-control w-full max-w-xs">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
