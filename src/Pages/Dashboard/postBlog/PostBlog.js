@@ -20,7 +20,8 @@ const PostBlog = () => {
   } = useForm();
 
   const navigate = useNavigate();
-  const base_url = process.env.REACT_APP_BASE_URL || "https://bloger-server-topaz.vercel.app";
+  const base_url =
+    process.env.REACT_APP_BASE_URL || "https://bloger-server-topaz.vercel.app";
   const date = new Date();
   const publishDate = format(date, "PP");
 
@@ -44,7 +45,7 @@ const PostBlog = () => {
 
   const handlePostBlog = async (data) => {
     try {
-      setLoading(true)
+      setLoading(true);
       data["publish"] = true;
       data["content"] = content;
       data["publishDate"] = publishDate;
@@ -92,14 +93,14 @@ const PostBlog = () => {
     } catch (error) {
       console.error("Blog Posting Error: ", error);
       toast.error("An error occurred. Please try again.");
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="w-1/2 mx-auto px-10 bg-white my-10 py-4 rounded">
-      <h2 className="text-4xl text-center mb-4">Add Your Valueable Complain</h2>
+      <h2 className="text-4xl text-center mb-4">Blog Post</h2>
       <form
         onSubmit={handleSubmit(handlePostBlog)}
         className="border rounded-lg my-2 px-10 mx-auto"
@@ -218,7 +219,7 @@ const PostBlog = () => {
         {/* button */}
         <input
           className="btn btn-accent my-4 text-slate-900 hover:text-white "
-          value={loading ? "Loading...": "Publish"}
+          value={loading ? "Loading..." : "Publish"}
           type="submit"
         />
       </form>
